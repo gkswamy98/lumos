@@ -1,14 +1,22 @@
 import dropbox
-import time
+from time import sleep
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(4, GPIO.OUT)
 
 dbx = dropbox.Dropbox("API-KEY-HERE")
 dbx.users_get_current_account()
 
 def lights_on():
-    print("on")
+    GPIO.output(4, GPIO.HIGH)
+    sleep(5)
+    GPIO.output(4, GPIO.LOW)
 
 def lights_off():
-    print("off")
+    GPIO.output(4, GPIO.HIGH)
+    sleep(5)
+    GPIO.output(4, GPIO.LOW)
 
 while True:
     for entry in dbx.files_list_folder('/ifttt').entries:
@@ -17,4 +25,4 @@ while True:
         elif "off" in entry.name:
             lights_off()
         dbx.files_delete("/ifttt/"+entry.name)
-    time.sleep(5)
+    sleep(5)
