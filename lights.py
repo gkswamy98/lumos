@@ -19,10 +19,13 @@ def lights_off():
     GPIO.output(4, GPIO.LOW)
 
 while True:
-    for entry in dbx.files_list_folder('/ifttt').entries:
-        if "on" in entry.name:
-            lights_on()
-        elif "off" in entry.name:
-            lights_off()
-        dbx.files_delete("/ifttt/"+entry.name)
-    sleep(5)
+    try:
+        for entry in dbx.files_list_folder('/ifttt').entries:
+            if "on" in entry.name:
+                lights_on()
+            elif "off" in entry.name:
+                lights_off()
+            dbx.files_delete("/ifttt/"+entry.name)
+        sleep(5)
+    except:
+        print("error, trying again")
