@@ -3,20 +3,21 @@ from time import sleep
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(4, GPIO.OUT)
+motor_pin = 4
+GPIO.setup(motor_pin, GPIO.OUT)
 
 dbx = dropbox.Dropbox("API-KEY-HERE")
 dbx.users_get_current_account()
 
 def lights_on():
-    GPIO.output(4, GPIO.HIGH)
+    GPIO.output(motor_pin, GPIO.HIGH)
     sleep(5)
-    GPIO.output(4, GPIO.LOW)
+    GPIO.output(motor_pin, GPIO.LOW)
 
 def lights_off():
-    GPIO.output(4, GPIO.HIGH)
+    GPIO.output(motor_pin, GPIO.HIGH)
     sleep(5)
-    GPIO.output(4, GPIO.LOW)
+    GPIO.output(motor_pin, GPIO.LOW)
 
 while True:
     try:
